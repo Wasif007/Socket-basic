@@ -1,4 +1,5 @@
 	var socket=io();
+
 socket.on('connect',function()
 {
 console.log("User connected to server");
@@ -7,7 +8,8 @@ console.log("User connected to server");
 socket.on("message",function(message){
 console.log("New message");
 console.log(message.type);
-jQuery('.chatting').append('<p>'+message.type+'</p>');
+var timestamp=moment.utc(message.time);
+jQuery('.chatting').append('<p>'+ '<strong>'+timestamp.local().format("hh:mm a")+ ' </strong>'+" :"+message.type+'</p>');
 });
 
 
