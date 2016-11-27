@@ -15,7 +15,7 @@ socket.emit("message",{
 
 socket.on("message",function(message){
 	console.log("message recieved :"+message.type);
-	socket.broadcast.emit("message",message);
+	io.emit("message",message);
 });
 });
 http.listen(PORT,function(){
