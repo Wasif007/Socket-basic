@@ -9,6 +9,11 @@ socket.on('connect',function()
 console.log("User connected to server");
 });
 
+socket.emit("joinroom",{
+name:name,
+room:room
+});
+
 socket.on("message",function(message){
 console.log("New message");
 console.log(message.type);
