@@ -11,7 +11,8 @@ io.on("connection",function(socket){
 console.log("Connected via socket.io");
 var times=moment().valueOf();
 socket.emit("message",{
-	type:"Message Send from server to client",
+	type:"Welcome to Chat Application",
+	name:"System",
 	time:times
 
 	
