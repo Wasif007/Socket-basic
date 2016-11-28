@@ -6,10 +6,34 @@ var io=require('socket.io')(http);
 var moment=require('moment');
 app.use(express.static(__dirname+"/public"));
 var clientrequest={};
+var times=moment().valueOf();
+
+function sendingUsers(socket)
+{
+var info=clientrequest[socket.id];
+var users=[];
+if(info ==='undefined')
+{
+	return;
+}	
+Object.keys(clientrequest).forEach(function(socketId)
+{
+var userInfo=clientrequest[socketId];
+if(userInfo.room===info.room)
+{
+	users.push(userInfo.name);
+}
+
+});
+socket.emit("message",{
+type:"User are "+users.join(' , '),
+time:times,
+name:"System"
+});
+}
 
 io.on("connection",function(socket){
 console.log("Connected via socket.io");
-var times=moment().valueOf();
 
 socket.on("disconnect",function(){
 var userData=clientrequest[socket.id];
@@ -45,8 +69,13 @@ socket.emit("message",{
 
 socket.on("message",function(message){
 	console.log("message recieved :"+message.type);
+	if(message.type==='@currentuser')
+{
+sendingUsers(socket);
+}else{
 	message.time=moment().valueOf();
 	io.to(clientrequest[socket.id].room).emit("message",message);
+}
 });
 });
 http.listen(PORT,function(){
