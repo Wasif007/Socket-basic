@@ -1,5 +1,8 @@
-	var socket=io();
+var name=getQueryVariable('name');
+var room=getQueryVariable('room');
 
+	var socket=io();
+	console.log("Name is : "+name+" "+" joined chat room : "+room);
 socket.on('connect',function()
 {
 console.log("User connected to server");
