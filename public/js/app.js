@@ -3,6 +3,7 @@ var room=getQueryVariable('room');
 
 	var socket=io();
 	console.log("Name is : "+name+" "+" joined chat room : "+room);
+	jQuery('.room-name').text(room);
 socket.on('connect',function()
 {
 console.log("User connected to server");
