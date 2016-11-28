@@ -11,6 +11,20 @@ io.on("connection",function(socket){
 console.log("Connected via socket.io");
 var times=moment().valueOf();
 
+socket.on("disconnect",function(){
+var userData=clientrequest[socket.id];
+	if(typeof  userData !== 'undefined')
+	{
+		socket.leave(userData.room);
+		io.to(userData.room).emit('message',{
+			type:userData.name+" has Left",
+			time:times,
+			name:"System"
+		});
+	}
+	delete clientrequest[socket.id];
+});
+
 socket.on("joinroom",function(req){
 clientrequest[socket.id]=req;
 socket.join(req.room);
