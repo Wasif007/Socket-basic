@@ -4,3 +4,9 @@
 	margin: 0;
 	display: flex;
 }
+h1{
+	margin: 24px 0;
+}
+.chatting p{
+	margin: 6px 0;
+}
