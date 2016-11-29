@@ -18,10 +18,11 @@ socket.on("message",function(message){
 console.log("New message");
 console.log(message.type);
 var $messages=jQuery('.chatting');
+var $messageq=jQuery('<li class="list-group-item" ></li>')
 var timestamp=moment.utc(message.time);
-$messages.append('<p><strong>'+message.name+" : "+timestamp.local().format("hh:mm a")+'</strong></p>');
-$messages.append('<p>'+message.type+'</p>');
-
+$messageq.append('<p><strong>'+message.name+" : "+timestamp.local().format("hh:mm a")+'</strong></p>');
+$messageq.append('<p>'+message.type+'</p>');
+$messages.append($messageq);
 });
 
 
